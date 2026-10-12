@@ -91,12 +91,37 @@ app.post("/api/review", async (req, res) => {
       });
     }
 
-    if (!anthropic || !CLAUDE_MODEL) {
-      return res.status(503).json({
-        error:
-          "Claude integration is not configured on the server."
-      });
+   if (!anthropic || !CLAUDE_MODEL) {
+  return res.json({
+    project:
+      project || "Unknown project",
+
+    language:
+      language || "Unknown",
+
+    source: "mock",
+
+    review: {
+      summary:
+        "Mock review completed successfully.",
+
+      strengths: [
+        "Code was received by the DevFlow backend.",
+        "The frontend-to-backend connection is working."
+      ],
+
+      issues: [
+        "Claude API integration is prepared but is not currently active."
+      ],
+
+      suggestions: [
+        "Add stronger input validation where needed.",
+        "Add structured error handling.",
+        "Enable Claude review when an authorized API credential becomes available."
+      ]
     }
+  });
+}
 
     const prompt = `
 You are the AI code-review assistant inside NTHNY DevFlow.
